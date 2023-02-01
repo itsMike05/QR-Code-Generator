@@ -6,23 +6,28 @@ from tkinter import filedialog
 
 def selectPath():
     path = filedialog.askdirectory()
+    path_label.config(text = path)
     
 
 
 # Defining a function to generate the QR code
-def generate_qrcode (url_to_convert):
-
+def generateQRcode ():
     qr = qrcode.QRCode(
         version = 1, 
         error_correction = qrcode.constants.ERROR_CORRECT_M, 
         box_size = 10, 
         border = 4
     )
-
-    qr.add_data(url_to_convert)
+    
+    url = link_field.get()
+    create_path = path_label.cget("text")
+    
+    
+    qr.add_data(url)
     qr.make(fit = True)
-    img = qr.make_image(fill_color = "black", back_color = "white")
-    img.save("qr_img.png")
+    # img = qr.make_image(fill_color = "black", back_color = "white")
+    # img.save("qr_img.png")
+    
 
 
 # GUI
@@ -30,6 +35,12 @@ screen = Tk()
 title = screen.title("QR Code Generator")
 canvas = Canvas(screen, width = 600, height = 600)
 canvas.pack()
+
+# Logo
+
+app_logo = PhotoImage(file = "logo.png")
+app_logo = app_logo.subsample(1, 1)
+canvas.create_image(300, 100, image = app_logo)
 
 # Target link field 
 
@@ -46,8 +57,12 @@ select_path_button = Button(screen, text = "Open File Explorer", command = selec
 canvas.create_window(300, 360, window = path_label)
 canvas.create_window(300, 400, window = select_path_button)
 
+# Create the QR code Button
+
+create_button = Button(screen, text = "Generate QR Code", command = generateQRcode)
+
 # Rendering GUI
 screen.mainloop()
 
 # Calling the function to generate the image
-# generate_qrcode('www.google.com')
+# generateQRcode('www.google.com')
