@@ -11,7 +11,7 @@ def selectPath():
 
 
 # Defining a function to generate the QR code
-def generateQRcode ():
+def generateQRcode():
     qr = qrcode.QRCode(
         version = 1, 
         error_correction = qrcode.constants.ERROR_CORRECT_M, 
@@ -25,6 +25,8 @@ def generateQRcode ():
     
     qr.add_data(url)
     qr.make(fit = True)
+    img = qr.make_image(fill_color = "black", back_color = "white")
+    img.save(f"{create_path}/qr_image.png")
     # img = qr.make_image(fill_color = "black", back_color = "white")
     # img.save("qr_img.png")
     
@@ -53,14 +55,13 @@ canvas.create_window(300, 280, window = link_field)
 
 path_label = Label(screen, text = "Choose a path for your image", font = "Arial, 15")
 select_path_button = Button(screen, text = "Open File Explorer", command = selectPath)
-
 canvas.create_window(300, 360, window = path_label)
 canvas.create_window(300, 400, window = select_path_button)
 
 # Create the QR code Button
 
 create_button = Button(screen, text = "Generate QR Code", command = generateQRcode)
-
+canvas.create_window(300, 500, window = create_button)
 # Rendering GUI
 screen.mainloop()
 
