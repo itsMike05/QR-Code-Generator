@@ -1,8 +1,19 @@
 # Importing libraries
 import qrcode 
+from tkinter import *
+from tkinter import filedialog
+
+
+# GUI
+screen = Tk()
+title = screen.title("QR Code Generator")
+canvas = Canvas(screen, width = 800, height = 600)
+canvas.pack()
+
+
+
 
 # Defining a function to generate the QR code
-
 def generate_qrcode (url_to_convert):
 
     qr = qrcode.QRCode(
@@ -17,6 +28,9 @@ def generate_qrcode (url_to_convert):
     img = qr.make_image(fill_color = 'black', back_color = 'white')
     img.save('qr_img.png')
 
-# Calling the function
 
-generate_qrcode('www.google.com')
+# Rendering GUI
+screen.mainloop()
+
+# Calling the function to generate the image
+# generate_qrcode('www.google.com')
